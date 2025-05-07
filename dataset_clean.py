@@ -13,14 +13,19 @@ df = pd.read_csv(data_str)
 
 def process(df): #search through and analise the data
     ranklist = df["Likes"].values.tolist()
-    #print(ranklist)
+    #print(ranklist[0].replace(",",""))
     l = len(ranklist)
     i = 0
     sum1 = 0
     for i in range(0,l):
-        a = int(ranklist[i].strip(","))
-        sum1 += int(ranklist[i])
-    print(str(sum1))
+        a = str(ranklist[i])
+        a = a.replace(",","")
+        if a == "nan":
+            pass
+        else:
+            sum1 += int(a)
+        i += 1
+    print("This is the mean amount of likes across all videos:")
     
 process(df)
 

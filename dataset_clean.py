@@ -12,21 +12,32 @@ df = pd.read_csv(data_str)
 #print(df["rank"])
 
 def process(df): #search through and analise the data
+    #to clean - video, category
+    #to analyze - views, likes, dislikes, category, and publish
     ranklist = df["Likes"].values.tolist()
-    #print(ranklist[0].replace(",",""))
     l = len(ranklist)
     i = 0
     sum1 = 0
+    miss = 0
+    print(l)
     for i in range(0,l):
         a = str(ranklist[i])
         a = a.replace(",","")
         if a == "nan":
-            pass
+            #print(ranklist[i])
+            ranklist.insert(i,"Miss")
+            miss += 1
+            #print(ranklist[i])
+            #print(" ")
         else:
+            ranklist.insert(i,a)
             sum1 += int(a)
         i += 1
-    print("This is the mean amount of likes across all videos:")
-    
+    df['Likes'] = pd.Series(ranklist) 
+    #print("This is the mean amount of likes across all videos:")
+    print(ranklist)
+    print(df)
+    #print(sum1)
 process(df)
 
 #idx.str.rstrip()

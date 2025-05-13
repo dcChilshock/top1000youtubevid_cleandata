@@ -16,8 +16,12 @@ def process(df): #search through and analise the data
     i = 0
     x = 0
     like = 0
-    sum1 = 0
+    dislike = 0
+    suml = 0
+    sumd = 0
+    sumv = 0
     miss = 0
+    categories = []
     for x in range(0,ll):
         indexlist = ["rank","Video views","Likes","Dislikes","published"]
         ranklist = df[index[x]].values.tolist()
@@ -33,19 +37,33 @@ def process(df): #search through and analise the data
                 if index[x] == "Video":
                     df.remove(i)
                     l -= 1 
+                if index[x] == "Video views"
                 ranklist[i:i+1] = ["Miss"]  #Handle missing values here, and clean data set
                 miss += 1
                 i += 1
             else:
+                if index[x] == "Category":
+                    categories.append(ranklist[i])
                 if index[x] == "Likes": #Sort and make data here
                     u = int(a)
+                    suml += u
                     if int(u) > like:
                         like = int(u)
-                if index[x] == "Views":
-                    sum1 += int(a) #here sort the data set?
+                if index[x] == "Dislikes":
+                    u = int(a)
+                    sumd += u
+                    if int(u) > dislike:
+                        dislike = int(a)
+                if index[x] == "Video views":
+                    sumv += int(a)
                 i += 1
         x += 1
-    print(sum)
+    md = sumd / l
+    ml = suml / l
+    mv = sumv / 1
+    print(mv)
+    print(ml)
+    print(md)
     #lenn = len(ranklist)
     #print(str(lenn))
     #df['Likes'] = pd.Series(ranklist) 

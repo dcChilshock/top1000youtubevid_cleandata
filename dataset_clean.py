@@ -12,6 +12,8 @@ def process(df): #search through and analise the data
     c = 0
     cc = 0
     ccc = 0
+    vid = [] # list of all vids to help find video names
+    rank = []
     like = [0,0]
     dislike = [0,0]
     view = [0,0]
@@ -53,31 +55,37 @@ def process(df): #search through and analise the data
                     pass
                     ranklist[i:i+1] = ["na"]
             else:
+                if index[x] == "Video":
+                    vid.append(ranklist[i])
                 if index[x] == "rank":
-                    rank = ranklist[i]
+                    rank.append(ranklist[i])
                 if index[x] == "Category":
                     categories.append(ranklist[i])
-                if index[x] == "Likes": #Sort and make data here
+                if index[x] == "Likes":
                     if int(a) == 0:
                         c += 1
                     else:
                         suml += int(a)
                     if int(a) > like[0]:
-                        like = [int(a),df.loc[int(rank)+1]]
+                        like[0] = int(a)
+                        like[1] = df.iloc[rank[i]-1, 1]
                 if index[x] == "Dislikes":
                     if int(a) == 0:
                         cc += 1
                     else:
                         sumd += int(a)
                     if int(a) > dislike[0]:
-                        dislike = [int(a),df.loc[int(rank)=1]]
+                        dislike[0] = int(a)
+                        dislike[1] = df.iloc[rank[i]-1, 1]
                 if index[x] == "Video views":
                     if int(a) == 0:
                         ccc += 1
                     else:
                         sumv += int(a)
                     if int(a) > view[0]:
-                        view = [int(a),df.loc[int(rank)]]
+                        view[0] = int(a)
+                        view[1] = df.iloc[rank[i]-1, 1]
+
 
                 i += 1
         x += 1
@@ -85,20 +93,14 @@ def process(df): #search through and analise the data
     cat1 = categories.count(cat)
     md = sumd / l #mean of dislikes, likes, and views
     ml = suml / l
-    mv = sumv / 1
-
-    #print("Here is the top category out of all 1000 videos, and the amount of videos")
-    #print(cat1)
-    #print(cat)
-    #print("here are the means of the views, likes, and dislikes")
-    #print(mv)
-    #print(ml)
-    #print(md)
-    #print("here are the videos with the highest views,likes, and dislikes in that order")
-    #print(view[0])
-    #print(view[1])
-    #print(like[0])
-    #print(like[1])
-    #print(dislike[0])
-    #print(dislike[1])
+    mv = sumv / l
+    print("Here is the top category out of all 1000 videos, and the amount of videos with that category")
+    print(cat)
+    print(cat1)
+    print("here are the average of the views, likes, and dislikes")
+    print(str(int(mv))+" , "+str(int(ml))+" , "+str(int(md)))
+    print("here are the videos with the highest views,likes, and dislikes in that order")
+    print(view[1]+"\nViews: "+str(view[0])+"\n")
+    print(like[1]+"\nLikes: "+str(like[1])+"\n")
+    print(dislike[1]+"\nDislikes: "+str(dislike[0]))
 process(df)
